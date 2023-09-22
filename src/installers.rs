@@ -97,6 +97,8 @@ pub fn suse() {
     }
     let mut manager = std::process::Command::new("zypper");
     manager.args(vec![
+        "--non-interactive",
+        "--gpg-auto-import-keys",
         "install",
         "rocblas",
         "rocm-smi-lib",
@@ -114,6 +116,7 @@ pub fn arch() {
     let mut manager = std::process::Command::new("pacman");
     manager.args(vec![
         "-S",
+        "--noconfirm",
         "rocm-smi-lib",
     ]);
     println!("installing...");

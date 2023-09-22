@@ -1,6 +1,6 @@
 [package]
 name = "rocm_smi_installer"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 license = "GPL-3.0"
 description = "easy to use installer for rocm-smi dev liblaries and packages"
