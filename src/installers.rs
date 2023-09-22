@@ -114,7 +114,6 @@ pub fn arch() {
     let mut manager = std::process::Command::new("pacman");
     manager.args(vec![
         "-S",
-        "rocm-smi",
         "rocm-smi-lib",
     ]);
     println!("installing...");
