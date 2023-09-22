@@ -2,8 +2,12 @@
 name = "rocm_smi_installer"
 version = "0.1.0"
 edition = "2021"
+license = "GPL-3.0"
+description = "easy to use installer for rocm-smi dev liblaries and packages"
+repository = "https://github.com/PTFOPlayer/rocm_smi_installer"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+sudo = "0.6.0"
 sys-info = "0.9.1"

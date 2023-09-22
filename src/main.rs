@@ -1,6 +1,12 @@
-mod auto_installer;
+use installers::{arch, auto_installer, fedora, rhel, suse};
+
+mod installers;
 
 fn main() {
+    match sudo::escalate_if_needed() {
+        Ok(res) => println!("running as {:?}", res),
+        Err(err) => panic!("permisions not given: {}", err),
+    }
     print!("
 
 ---------------------------
@@ -20,34 +26,27 @@ select option (default 1):
     ");
     let buf = &mut String::new();
     let reader = std::io::stdin();
-    'l1: loop {
-        if let Ok(len) = reader.read_line(buf) {
-            match input_parser(len, buf) {
-                Ok(_) => break 'l1,
-                Err(_) => {
-                    println!("input error try again:");
-                }
-            }
-        } else {
-            println!("input error try again:");
-        }
+    if let Ok(len) = reader.read_line(buf) {
+        input_parser(len, buf).expect("input error, try again");
     }
 }
 
 fn input_parser(_len: usize, buf: &str) -> Result<(), ()> {
     let buf = &buf[0..buf.len() - 1];
     if buf.is_empty() {
-        auto_installer::auto_installer();
+        auto_installer();
         return Ok(());
     }
 
     match buf {
-        "1" => auto_installer::auto_installer(),
-        "2" => todo!(),
-        "3" => todo!(),
-        "4" => todo!(),
-        "5" => todo!(),
-        "6" => todo!(),
+        "1" => {
+            installers::auto_installer();
+        }
+        "2" => println!("currently not implemented, please wait for future versions"),
+        "3" => fedora(),
+        "4" => rhel(),
+        "5" => suse(),
+        "6" => arch(),
         &_ => return Err(()),
     };
     Ok(())
